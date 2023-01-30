@@ -13,10 +13,10 @@ struct ListNode {
     
 };
 ListNode* mergeTwoLists(ListNode* list1, ListNode* list2);
-
+ListNode* removeElements(ListNode* head, int val);
 int main() {
 
-    vector<int> v1 = { -9,3};
+    vector<int> v1 = { 1,2,6,3,4,5,6 };
     vector<int> v2 = { 5,7 };
     ListNode x1 = ListNode(v1[0]);
     ListNode * start1 = &x1;
@@ -40,8 +40,8 @@ int main() {
         curr = curr->next;
     }
 
-    curr = mergeTwoLists(start1, start2);
-    
+    //curr = mergeTwoLists(start1, start2);
+    curr = removeElements(start1, 6);
     cout << "l";// insert(v, 2);
 
 	return 0;
@@ -189,3 +189,86 @@ ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
     }
 
 }
+
+ListNode* removeElements(ListNode* head, int val) {
+    if (head == nullptr) {
+        return head;
+    }
+    if (head->next == nullptr) {
+        if (head->val == val) {
+            return nullptr;
+        }
+        else {
+            return head;
+        }
+    }
+    ListNode* curr = head->next;
+    ListNode* prev = head;
+    while (curr != nullptr) {
+        if (curr->val == val) {
+            //if (curr->next != nullptr) {
+                prev->next = curr->next;
+                
+                curr = curr->next;
+
+            //}
+            //else { break; }
+            
+        }
+        else {
+            prev = curr;
+            curr = curr->next;
+        }
+        
+    }
+
+    if (head->val == val) {
+        head = head->next;
+
+    }
+    return head;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //ListNode* res = head;
+    //ListNode* r;// = res;
+    //if (head == nullptr) {
+    //    return head;
+    //}
+    //int i = 0;
+    //while (head->next != nullptr) {
+    //    if (head->val != val) {
+    //        ListNode*  r = new ListNode(head->val);
+    //        if (i == 0) {
+    //            res = r;
+    //            i++;
+    //        }
+    //        r = r->next;
+    //        
+
+    //    }
+    //    head = head->next;
+    //}
+    //if (head->val != val) {
+    //    r = new ListNode(head->val);
+    //}
+    //return res;
+
+
+
+}
+
