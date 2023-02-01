@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stack>
+#include <queue>
 #include<algorithm>
 using namespace std;
 
@@ -12,11 +14,32 @@ struct ListNode {
     ListNode(int x, ListNode* next) : val(x), next(next) {}
     
 };
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
+    
+};
+
+
+ListNode* reverseList(ListNode* head);
 ListNode* mergeTwoLists(ListNode* list1, ListNode* list2);
 ListNode* removeElements(ListNode* head, int val);
+bool isValid(string s);
+vector<vector<int>> levelOrder(TreeNode* root);
+vector<int> preorderTraversal(TreeNode* root);
+vector<int> inorderTraversal(TreeNode* root);
+vector<int> postorderTraversal(TreeNode* root);
+bool isSymmetric(TreeNode* root);
+bool isSymmetric(TreeNode* root1, TreeNode* root2);
+
+
 int main() {
 
-    vector<int> v1 = { 1,2,6,3,4,5,6 };
+    vector<int> v1 = { 1,2,3,4,5 };
     vector<int> v2 = { 5,7 };
     ListNode x1 = ListNode(v1[0]);
     ListNode * start1 = &x1;
@@ -41,7 +64,7 @@ int main() {
     }
 
     //curr = mergeTwoLists(start1, start2);
-    curr = removeElements(start1, 6);
+    curr = reverseList(start1);
     cout << "l";// insert(v, 2);
 
 	return 0;
@@ -228,47 +251,198 @@ ListNode* removeElements(ListNode* head, int val) {
     }
     return head;
 
+}
+
+ListNode* reverseList(ListNode* head) {
+    stack<int> s;
+    ListNode* start = head;
+    while (head != nullptr) {
+        s.push(head->val);
+        head = head->next;
+    }
+    //ListNode* a = nullptr;
+    //ListNode* b = new ListNode();
+    ListNode* start2 = start;
+    while (!s.empty()) {
+        // int x = s.peek();
+        start->val = (s.top());
+        s.pop();
+        start = start->next;
+    }
+    return start2;
+}
+
+vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> v;
+    if (root == nullptr) {
+        return v;
+    }
+
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        vector<int> temp;
+        int size = q.size();
+        for (int i = 0; i < size; i++) {
+
+            temp.push_back(q.front()->val);
+
+            if (q.front()->left != nullptr) {
+                q.push(q.front()->left);
+            }
+            if (q.front()->right != nullptr) {
+                q.push(q.front()->right);
+            }
+            q.pop();
+        }
+        v.push_back(temp);
 
 
+    }
+    return v;
+}
+bool isValid(string s) {
+    stack<char> ss;
+    char x;
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == '(' || s[i] == '[' || s[i] == '{') {
+            ss.push(s[i]);
+        }
+        else {
+            if (ss.size()) {
+                if (s[i] == ')' && ss.top() == '(') {
+                    ss.pop();
+                }
+                else if (s[i] == ']' && ss.top() == '[') {
+                    ss.pop();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //ListNode* res = head;
-    //ListNode* r;// = res;
-    //if (head == nullptr) {
-    //    return head;
-    //}
-    //int i = 0;
-    //while (head->next != nullptr) {
-    //    if (head->val != val) {
-    //        ListNode*  r = new ListNode(head->val);
-    //        if (i == 0) {
-    //            res = r;
-    //            i++;
-    //        }
-    //        r = r->next;
-    //        
-
-    //    }
-    //    head = head->next;
-    //}
-    //if (head->val != val) {
-    //    r = new ListNode(head->val);
-    //}
-    //return res;
-
-
+                }
+                else if (s[i] == '}' && ss.top() == '{') {
+                    ss.pop();
+                }
+                else {
+                    return 0;
+                }
+            }
+            else { return 0; }
+        }
+    }
+    if (ss.size()) {
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
+vector<int> preorderTraversal(TreeNode* root) {
+    vector<int> v1;
+    vector<int> v2;
+    vector<int> ans;
+    if (root == nullptr) {
+        return ans;
+    }
+    ans.push_back(root->val);
+    if (root->left != nullptr) {
+        v1 = preorderTraversal(root->left);
+        for (int i = 0; i < v1.size(); i++) {
+            ans.push_back(v1[i]);
+        }
+    }
+    if (root->right != nullptr) {
+        v2 = preorderTraversal(root->right);
+        for (int i = 0; i < v2.size(); i++) {
+            ans.push_back(v2[i]);
+        }
+    }
+    return ans;
 
 }
+vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> v1;
+    vector<int> v2;
+    vector<int> ans;
+    if (root == nullptr) {
+        return ans;
+    }
+
+    if (root->left != nullptr) {
+        v1 = inorderTraversal(root->left);
+        for (int i = 0; i < v1.size(); i++) {
+            ans.push_back(v1[i]);
+        }
+    }
+
+    ans.push_back(root->val);
+
+    if (root->right != nullptr) {
+        v2 = inorderTraversal(root->right);
+        for (int i = 0; i < v2.size(); i++) {
+            ans.push_back(v2[i]);
+        }
+    }
+    return ans;
+}
+vector<int> postorderTraversal(TreeNode* root) {
+    vector<int> v1;
+    vector<int> v2;
+    vector<int> ans;
+    if (root == nullptr) {
+        return ans;
+    }
+
+    if (root->left != nullptr) {
+        v1 = postorderTraversal(root->left);
+        for (int i = 0; i < v1.size(); i++) {
+            ans.push_back(v1[i]);
+        }
+    }
+    if (root->right != nullptr) {
+        v2 = postorderTraversal(root->right);
+        for (int i = 0; i < v2.size(); i++) {
+            ans.push_back(v2[i]);
+        }
+    }
+    ans.push_back(root->val);
+    return ans;
+}
+bool isSymmetric(TreeNode* root) {
+    return isSymmetric(root->left, root->right);
+
+}
+bool isSymmetric(TreeNode* root1, TreeNode* root2) {
+    if (root1 == nullptr && root2 == nullptr) {
+        return 1;
+    }
+    else if (root1 == nullptr) {
+        return 0;
+    }
+    else if (root2 == nullptr) {
+        return 0;
+    }
+    else {
+        bool boo = 1;
+        if (root1->left != nullptr && root2->right != nullptr) {
+            boo = boo && root1->val == root2->val && isSymmetric(root1->left, root2->right);  //root1->left->val==root2->right->val;
+        }
+        else if (root1->left == nullptr && root2->right == nullptr) {
+            boo = boo && root1->val == root2->val;
+        }
+        else {
+            boo = 0;
+        }
+        if (root1->right != nullptr && root2->left != nullptr) {
+            boo = boo && root1->val == root2->val && isSymmetric(root1->right, root2->left);  //root1->left->val==root2->right->val;
+        }
+        else if (root1->right == nullptr && root2->left == nullptr) {
+            boo = boo && root1->val == root2->val;
+        }
+        else {
+            boo = 0;
+        }
+
+        return boo;
+    }
+}
+
 
