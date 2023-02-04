@@ -35,10 +35,17 @@ vector<int> inorderTraversal(TreeNode* root);
 vector<int> postorderTraversal(TreeNode* root);
 bool isSymmetric(TreeNode* root);
 bool isSymmetric(TreeNode* root1, TreeNode* root2);
+TreeNode* insertIntoBST(TreeNode* root, int val);
+bool isValidBST(TreeNode* root);
+bool isValidBST(TreeNode* root, long  min, long  max);
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q);
 
 
 int main() {
+    TreeNode* n0 = new TreeNode(3);
+    TreeNode* n1 = new TreeNode(1);
 
+    TreeNode* n = new TreeNode(2, n0,n1);//new TreeNode(3, new TreeNode(1, new TreeNode(0), new TreeNode(2, nullptr , new TreeNode(3))), new TreeNode(5, new TreeNode(4), new TreeNode(6)));
     vector<int> v1 = { 1,2,3,4,5 };
     vector<int> v2 = { 5,7 };
     ListNode x1 = ListNode(v1[0]);
@@ -64,7 +71,9 @@ int main() {
     }
 
     //curr = mergeTwoLists(start1, start2);
-    curr = reverseList(start1);
+    //curr = reverseList(start1);
+    bool b = lowestCommonAncestor(n, n0,n1 );
+
     cout << "l";// insert(v, 2);
 
 	return 0;
@@ -444,5 +453,150 @@ bool isSymmetric(TreeNode* root1, TreeNode* root2) {
         return boo;
     }
 }
+TreeNode* insertIntoBST(TreeNode* root, int val) {
+    TreeNode* temp = new TreeNode(val);
+    TreeNode* max = new TreeNode(INT_MAX);//= root;
+    queue<TreeNode*> q;
+    q.push(root);
+    while (!q.empty()) {
+        if (q.front()->val > val) {
+            if (max->val > q.front()->val) {
+                max = q.front();
+            }
+            //    q.pop();
+
+        }//else{
+        if (q.front()->left != nullptr) {
+            q.push(q.front()->left);
+        }
+        if (q.front()->right != nullptr) {
+            q.push(q.front()->right);
+        }
+        q.pop();
+        //}
+
+    }
+    if (max->val != INT_MAX) {
+        temp->left = max->left;
+        if (max->left != nullptr) {
+            if (max->left->right != nullptr) {
+                        temp->right = max->left->right;
+                        max->left->right = nullptr;
+                    }
+        }
+        
+        max->left = temp;
+    }
+    else {
+        temp->left = root;
+        return temp;
+    }
+
+
+
+
+
+    return root;
+    /*TreeNode* temp = new TreeNode(val);
+    if (root->val > val) {
+        if (root->left == nullptr) {
+            root->left = temp;
+        }
+        else {
+            if (root->left->val > val) {
+                insertIntoBST(root->left, val);
+            }
+            else {
+                //if(root->left->right != nullptr){
+                  //  if(root->left->right>)
+                //}
+                temp->left = root->left;
+                temp->right = root->left->right;
+                root->left = temp;
+            }
+        }
+    }
+    else {
+        if (root->right == nullptr) {
+            root->right = temp;
+        }
+        else {
+            if (root->right->val > val) {
+                insertIntoBST(root->right, val);
+            }
+            else {
+                temp->right = root->right;
+                temp->left = root->right->left;
+                root->right = temp;
+            }
+        }
+    }
+    return root;
+    */
+}
+bool isValidBST(TreeNode* root) {
+    long  max = LONG_MAX;
+    long  min = LONG_MIN;
+    bool bo = isValidBST(root, min, max);
+    return  bo;
+}
+bool isValidBST(TreeNode* root, long  min, long  max) {
+    bool bo = 1;
+
+    if (root->val <= min || root->val >= max) {
+        return 0;
+    }
+
+    if (root->left != nullptr) {
+        if (root->left->val >= root->val) {
+            return 0;
+        }
+        else {
+            bo = bo && isValidBST(root->left, min, root->val);
+        }
+
+    }
+
+    if (root->right != nullptr) {
+        if (root->right->val <= root->val) {
+            return 0;
+        }
+        else {
+            bo = bo && isValidBST(root->right, root->val, max);
+        }
+
+    }
+
+    return  bo;
+}
+
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+
+
+    if (root == p || root == q) {
+        return root;
+    }
+    if (p->val > q->val) {
+        TreeNode* temp = q;
+        q = p;
+        p = temp;
+    }
+
+    if (root->val > p->val && root->val < q->val) {
+        return root;
+    }
+    else if (root->val > p->val && root->val > q->val) {
+        return lowestCommonAncestor(root->left, p, q);
+    }
+    else {
+        return lowestCommonAncestor(root->right, p, q);
+    }
+
+
+}
+
+
+
+
 
 
