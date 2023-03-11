@@ -1,602 +1,470 @@
 #include <iostream>
-#include <string>
-#include <vector>
-#include <stack>
-#include <queue>
-#include<algorithm>
+#include <chrono>
 using namespace std;
 
-struct ListNode {
-    int val;
-    ListNode* next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode* next) : val(x), next(next) {}
-    
-};
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
-    
-};
 
+void insertionSort(int* arr, int size, int& compCount, int& moveCount);
 
-ListNode* reverseList(ListNode* head);
-ListNode* mergeTwoLists(ListNode* list1, ListNode* list2);
-ListNode* removeElements(ListNode* head, int val);
-bool isValid(string s);
-vector<vector<int>> levelOrder(TreeNode* root);
-vector<int> preorderTraversal(TreeNode* root);
-vector<int> inorderTraversal(TreeNode* root);
-vector<int> postorderTraversal(TreeNode* root);
-bool isSymmetric(TreeNode* root);
-bool isSymmetric(TreeNode* root1, TreeNode* root2);
-TreeNode* insertIntoBST(TreeNode* root, int val);
-bool isValidBST(TreeNode* root);
-bool isValidBST(TreeNode* root, long  min, long  max);
-TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q);
+void bubleSort(int* arr, int size, int& compCount, int& moveCount);
+
+void mergeSort(int* arr, int size, int& compCount, int& moveCount);
+
+int* merge(int* arr1, int* arr2, int size1, int size2, int& compCount, int& moveCount);
+
+void hybridSort(int* arr, int size, int& compCount, int& moveCount);
+
+void quickSort(int* arr, int size, int& compCount, int& moveCount);
+
+int partition(int* arr, int size, int& compCount, int& moveCount);
+
+void swap(int& x, int& y);
 
 
 int main() {
-    TreeNode* n0 = new TreeNode(3);
-    TreeNode* n1 = new TreeNode(1);
 
-    TreeNode* n = new TreeNode(2, n0,n1);//new TreeNode(3, new TreeNode(1, new TreeNode(0), new TreeNode(2, nullptr , new TreeNode(3))), new TreeNode(5, new TreeNode(4), new TreeNode(6)));
-    vector<int> v1 = { 1,2,3,4,5 };
-    vector<int> v2 = { 5,7 };
-    ListNode x1 = ListNode(v1[0]);
-    ListNode * start1 = &x1;
-    ListNode x2 = ListNode(v2[0]);
-    ListNode* start2=&x2;
-    ListNode* curr=start1;
+	double duration;
+	int size = 1000;
+	int* arr0 = new int[size];
+	int* arr1 = new int[size];
+	int* arr2 = new int[size];
+	int* arr3 = new int[size];
+	int* arr4 = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		int n = rand() % 1000;
+		arr0[i] = n;
+		arr1[i] = n;
+		arr2[i] = n;
+		arr3[i] = n;
+		arr4[i] = n;
 
-    
-    for (int i = 1; i < v1.size(); i++)
-    {
-        ListNode* x = new ListNode(v1[i]);
-        curr->next = x;
-        curr = curr->next;
+	}
 
-    }
-    curr = start2;
-    for (int i = 1; i < v2.size(); i++)
-    {
-        ListNode* x = new ListNode(v2[i]);
-        curr->next = x;
-        curr = curr->next;
-    }
+	cout << "Array Size: " << size << endl;
+	int compCount = 0;
+	int moveCount = 0;
+	clock_t startTime = clock();
+	insertionSort(arr0, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Insertion Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
 
-    //curr = mergeTwoLists(start1, start2);
-    //curr = reverseList(start1);
-    bool b = lowestCommonAncestor(n, n0,n1 );
+	startTime = clock();
+	bubleSort(arr1, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Bubble Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
 
-    cout << "l";// insert(v, 2);
+	startTime = clock();
+	mergeSort(arr2, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Merge Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
 
+	startTime = clock();
+	quickSort(arr3, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Quick Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	hybridSort(arr4, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Hybrid Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	delete[] arr0;
+	delete[] arr1;
+	delete[] arr2;
+	delete[] arr3;
+	delete[] arr4;
+
+	size = 5000;
+	arr0 = new int[size];
+	arr1 = new int[size];
+	arr2 = new int[size];
+	arr3 = new int[size];
+	arr4 = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		int n = rand() % 1000;
+		arr0[i] = n;
+		arr1[i] = n;
+		arr2[i] = n;
+		arr3[i] = n;
+		arr4[i] = n;
+
+	}
+
+	cout << "Array Size: " << size << endl;
+	compCount = 0;
+	moveCount = 0;
+	startTime = clock();
+	insertionSort(arr0, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Insertion Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	bubleSort(arr1, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Bubble Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	mergeSort(arr2, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Merge Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	quickSort(arr3, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Quick Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	hybridSort(arr4, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Hybrid Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	delete[] arr0;
+	delete[] arr1;
+	delete[] arr2;
+	delete[] arr3;
+	delete[] arr4;
+
+
+	size = 10000;
+
+	arr0 = new int[size];
+	arr1 = new int[size];
+	arr2 = new int[size];
+	arr3 = new int[size];
+	arr4 = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		int n = rand() % 1000;
+		arr0[i] = n;
+		arr1[i] = n;
+		arr2[i] = n;
+		arr3[i] = n;
+		arr4[i] = n;
+
+	}
+
+	cout << "Array Size: " << size << endl;
+	compCount = 0;
+	moveCount = 0;
+	startTime = clock();
+	insertionSort(arr0, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Insertion Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	bubleSort(arr1, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Bubble Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	mergeSort(arr2, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Merge Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	quickSort(arr3, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Quick Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	hybridSort(arr4, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Hybrid Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	delete[] arr0;
+	delete[] arr1;
+	delete[] arr2;
+	delete[] arr3;
+	delete[] arr4;
+
+
+	size = 20000;
+
+	arr0 = new int[size];
+	arr1 = new int[size];
+	arr2 = new int[size];
+	arr3 = new int[size];
+	arr4 = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		int n = rand() % 1000;
+		arr0[i] = n;
+		arr1[i] = n;
+		arr2[i] = n;
+		arr3[i] = n;
+		arr4[i] = n;
+
+	}
+
+	cout << "Array Size: " << size << endl;
+	compCount = 0;
+	moveCount = 0;
+	startTime = clock();
+	insertionSort(arr0, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Insertion Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	bubleSort(arr1, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Bubble Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	mergeSort(arr2, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Merge Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	quickSort(arr3, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Quick Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	startTime = clock();
+	hybridSort(arr4, size, compCount, moveCount);
+	duration = 1000 * double(clock() - startTime) / CLOCKS_PER_SEC;
+	cout << "Hybrid Sort:	Comparison) " << compCount << " Move) " << moveCount << " Time) " << duration;
+	compCount = 0;
+	moveCount = 0;
+	cout << endl;
+
+	delete[] arr0;
+	delete[] arr1;
+	delete[] arr2;
+	delete[] arr3;
+	delete[] arr4;
+
+
+
+
+	/*
+	int const size = 60;
+	int compCount = 0;
+	int moveCount = 0;
+	
+	int arr[size] ;
+	for (int i = 0; i < size; i++) {
+		arr[i]= rand()%100;
+	}
+
+	for (int i = 0; i < size; i++) {
+		cout << arr[i] << "\n";
+	}
+	cout<<"\nNew:\n";
+	hybridSort(arr, size, compCount, moveCount);
+
+	for (int i = 0; i < size; i++) {
+		cout << arr[i] << "\n";
+	}
+	*/
 	return 0;
 }
-ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-    if (list1 == nullptr) {
-        return list2;
-    }
-    else if (list2 == nullptr) {
-        return list1;
-    }
 
-    if (list1->val < list2->val) {
-        ListNode* curr = list1->next;
-        ListNode* prev = list1;
+void insertionSort(int* arr, int size, int& compCount, int& moveCount)
+{
+	
+	for (int i = 1; i < size; i++) {
+		compCount++;
+		if (arr[i] < arr[i - 1]) {
+			for (int j = i ; j >= 1; j--) {
+				compCount++;
+				if (arr[j] < arr[j - 1]) {
+					swap(arr[j], arr[j - 1]);
+					moveCount++;
+				}
+				else {
+					break;
+				}
+			}
+		}
+	}
 
-        if (curr != nullptr) {
-            while (curr->next != nullptr) {
-                if (curr->val < list2->val) {
-                    prev = curr;
-                    curr = curr->next;
-                }
-                else {
-                    prev->next = list2;
-                    list2 = list2->next;
-                    prev->next->next = curr;
-                    prev = prev->next;
-                    if (list2 == nullptr) {
-                        return list1;
-                    }
-                }
-            }
-
-
-            while (list2->next != nullptr) {
-                if (curr->val < list2->val) {
-                    prev = curr;
-                    curr = curr->next;
-                    break;
-                }
-                else {
-                    prev->next = list2;
-                    list2 = list2->next;
-                    prev->next->next = curr;
-                    prev = prev->next;
-                    if (list2 == nullptr) {
-                        return list1;
-                    }
-                }
-
-            }
-            if (curr != nullptr) {
-
-                if (curr->val < list2->val) {
-                    prev = curr;
-                    curr = curr->next;
-
-                }
-                else {
-                    prev->next = list2;
-                    list2 = list2->next;
-                    prev->next->next = curr;
-                    prev = prev->next;
-                    if (list2 == nullptr) {
-                        return list1;
-                    }
-                }
-            }
-            prev->next = list2;
-        }
-        else {
-            prev->next = list2;
-        }
-
-
-        return list1;
-
-    }
-    else {
-
-        ListNode* curr = list2->next;
-        ListNode* prev = list2;
-
-        if (curr != nullptr) {
-            while (curr->next != nullptr) {
-                if (curr->val < list1->val) {
-                    prev = curr;
-                    curr = curr->next;
-                }
-                else {
-                    prev->next = list1;
-                    list1 = list1->next;
-                    prev->next->next = curr;
-                    prev = prev->next;
-                    if (list1 == nullptr) {
-                        return list2;
-                    }
-                }
-            }
-
-
-            while (list1->next != nullptr) {
-                if (curr->val < list1->val) {
-                    prev = curr;
-                    curr = curr->next;
-                    break;
-                }
-                else {
-                    prev->next = list1;
-                    list1 = list1->next;
-                    prev->next->next = curr;
-                    prev = prev->next;
-                    if (list1 == nullptr) {
-                        return list2;
-                    }
-                }
-
-            }
-            if (curr != nullptr) {
-                if (curr->val < list1->val) {
-                    prev = curr;
-                    curr = curr->next;
-
-                }
-                else {
-                    prev->next = list1;
-                    list1 = list1->next;
-                    prev->next->next = curr;
-                    prev = prev->next;
-                    if (list1 == nullptr) {
-                        return list2;
-                    }
-                }
-            }
-            
-            prev->next = list1;
-        }
-        else {
-            prev->next = list1;
-        }
-
-        
-        return list2;
-
-    }
+	
 
 }
 
-ListNode* removeElements(ListNode* head, int val) {
-    if (head == nullptr) {
-        return head;
-    }
-    if (head->next == nullptr) {
-        if (head->val == val) {
-            return nullptr;
-        }
-        else {
-            return head;
-        }
-    }
-    ListNode* curr = head->next;
-    ListNode* prev = head;
-    while (curr != nullptr) {
-        if (curr->val == val) {
-            //if (curr->next != nullptr) {
-                prev->next = curr->next;
-                
-                curr = curr->next;
+void bubleSort(int* arr, int size, int& compCount, int& moveCount)
+{
+	bool check = 0;
 
-            //}
-            //else { break; }
-            
-        }
-        else {
-            prev = curr;
-            curr = curr->next;
-        }
-        
-    }
+	do {
+		check = 0;
 
-    if (head->val == val) {
-        head = head->next;
+		for (int i = 1; i < size; i++) {
+			compCount++;
+			if (arr[i - 1] > arr[i]) {
+				moveCount++;
+				swap(arr[i], arr[i - 1]);
+				check++;
+			}
+		}
 
-    }
-    return head;
+	} while (check);
+}
+
+void mergeSort(int* arr, int size, int& compCount, int& moveCount)
+{
+	if (size == 1) {
+		return;
+	}
+	mergeSort(arr, size / 2, compCount, moveCount);
+	mergeSort(arr+size/2, size-size / 2, compCount, moveCount);
+	
+	int* temp = merge(arr, arr + size / 2, size / 2, size - size / 2, compCount,moveCount);
+	for (int i = 0; i < size; i++)
+	{	
+		moveCount++;
+		swap(arr[i], temp[i]);
+
+	}
+	
+}
+
+int* merge(  int* arr1, int* arr2, int size1, int size2, int& compCount, int& moveCount)
+{	
+	int* arr = new int[size1 + size2];
+	int index = 0;
+	int j = 0;
+	for (int i = 0; i < size1; i++) {
+
+		compCount++;
+		if (arr1[i] > arr2[j]) {
+			arr[index] = arr2[j];
+			j++;
+			i--;
+			
+		}
+		else {
+			arr[index] = arr1[i];
+
+		}
+		if (size2 == j) {
+			index++;
+			for (int k=index; k < size1 + size2; k++) {
+				i++;
+				arr[k] = arr1[i];
+				
+			}
+			
+			break;
+		}
+		
+
+		index++;
+	}
+
+	if (size2 > j) {
+		for (int k = index; k < size1 + size2; k++) {
+			arr[k] = arr2[j];
+			j++;
+		}
+	}
+	return arr;
+
+		
+	
+}
+
+void hybridSort(int* arr, int size, int& compCount, int& moveCount)
+{
+	if (size <= 20) {
+		bubleSort( arr, size, compCount, moveCount);
+	}
+	else {
+		int index = partition(arr, size, compCount, moveCount);
+		hybridSort(arr, index - 1, compCount, moveCount);
+		hybridSort(arr + index + 1, size - index - 1, compCount, moveCount);
+	}
 
 }
 
-ListNode* reverseList(ListNode* head) {
-    stack<int> s;
-    ListNode* start = head;
-    while (head != nullptr) {
-        s.push(head->val);
-        head = head->next;
-    }
-    //ListNode* a = nullptr;
-    //ListNode* b = new ListNode();
-    ListNode* start2 = start;
-    while (!s.empty()) {
-        // int x = s.peek();
-        start->val = (s.top());
-        s.pop();
-        start = start->next;
-    }
-    return start2;
-}
-
-vector<vector<int>> levelOrder(TreeNode* root) {
-    vector<vector<int>> v;
-    if (root == nullptr) {
-        return v;
-    }
-
-    queue<TreeNode*> q;
-    q.push(root);
-
-    while (!q.empty()) {
-        vector<int> temp;
-        int size = q.size();
-        for (int i = 0; i < size; i++) {
-
-            temp.push_back(q.front()->val);
-
-            if (q.front()->left != nullptr) {
-                q.push(q.front()->left);
-            }
-            if (q.front()->right != nullptr) {
-                q.push(q.front()->right);
-            }
-            q.pop();
-        }
-        v.push_back(temp);
-
-
-    }
-    return v;
-}
-bool isValid(string s) {
-    stack<char> ss;
-    char x;
-    for (int i = 0; i < s.size(); i++) {
-        if (s[i] == '(' || s[i] == '[' || s[i] == '{') {
-            ss.push(s[i]);
-        }
-        else {
-            if (ss.size()) {
-                if (s[i] == ')' && ss.top() == '(') {
-                    ss.pop();
-                }
-                else if (s[i] == ']' && ss.top() == '[') {
-                    ss.pop();
-
-                }
-                else if (s[i] == '}' && ss.top() == '{') {
-                    ss.pop();
-                }
-                else {
-                    return 0;
-                }
-            }
-            else { return 0; }
-        }
-    }
-    if (ss.size()) {
-        return 0;
-    }
-    else {
-        return 1;
-    }
-}
-vector<int> preorderTraversal(TreeNode* root) {
-    vector<int> v1;
-    vector<int> v2;
-    vector<int> ans;
-    if (root == nullptr) {
-        return ans;
-    }
-    ans.push_back(root->val);
-    if (root->left != nullptr) {
-        v1 = preorderTraversal(root->left);
-        for (int i = 0; i < v1.size(); i++) {
-            ans.push_back(v1[i]);
-        }
-    }
-    if (root->right != nullptr) {
-        v2 = preorderTraversal(root->right);
-        for (int i = 0; i < v2.size(); i++) {
-            ans.push_back(v2[i]);
-        }
-    }
-    return ans;
-
-}
-vector<int> inorderTraversal(TreeNode* root) {
-    vector<int> v1;
-    vector<int> v2;
-    vector<int> ans;
-    if (root == nullptr) {
-        return ans;
-    }
-
-    if (root->left != nullptr) {
-        v1 = inorderTraversal(root->left);
-        for (int i = 0; i < v1.size(); i++) {
-            ans.push_back(v1[i]);
-        }
-    }
-
-    ans.push_back(root->val);
-
-    if (root->right != nullptr) {
-        v2 = inorderTraversal(root->right);
-        for (int i = 0; i < v2.size(); i++) {
-            ans.push_back(v2[i]);
-        }
-    }
-    return ans;
-}
-vector<int> postorderTraversal(TreeNode* root) {
-    vector<int> v1;
-    vector<int> v2;
-    vector<int> ans;
-    if (root == nullptr) {
-        return ans;
-    }
-
-    if (root->left != nullptr) {
-        v1 = postorderTraversal(root->left);
-        for (int i = 0; i < v1.size(); i++) {
-            ans.push_back(v1[i]);
-        }
-    }
-    if (root->right != nullptr) {
-        v2 = postorderTraversal(root->right);
-        for (int i = 0; i < v2.size(); i++) {
-            ans.push_back(v2[i]);
-        }
-    }
-    ans.push_back(root->val);
-    return ans;
-}
-bool isSymmetric(TreeNode* root) {
-    return isSymmetric(root->left, root->right);
-
-}
-bool isSymmetric(TreeNode* root1, TreeNode* root2) {
-    if (root1 == nullptr && root2 == nullptr) {
-        return 1;
-    }
-    else if (root1 == nullptr) {
-        return 0;
-    }
-    else if (root2 == nullptr) {
-        return 0;
-    }
-    else {
-        bool boo = 1;
-        if (root1->left != nullptr && root2->right != nullptr) {
-            boo = boo && root1->val == root2->val && isSymmetric(root1->left, root2->right);  //root1->left->val==root2->right->val;
-        }
-        else if (root1->left == nullptr && root2->right == nullptr) {
-            boo = boo && root1->val == root2->val;
-        }
-        else {
-            boo = 0;
-        }
-        if (root1->right != nullptr && root2->left != nullptr) {
-            boo = boo && root1->val == root2->val && isSymmetric(root1->right, root2->left);  //root1->left->val==root2->right->val;
-        }
-        else if (root1->right == nullptr && root2->left == nullptr) {
-            boo = boo && root1->val == root2->val;
-        }
-        else {
-            boo = 0;
-        }
-
-        return boo;
-    }
-}
-TreeNode* insertIntoBST(TreeNode* root, int val) {
-    TreeNode* temp = new TreeNode(val);
-    TreeNode* max = new TreeNode(INT_MAX);//= root;
-    queue<TreeNode*> q;
-    q.push(root);
-    while (!q.empty()) {
-        if (q.front()->val > val) {
-            if (max->val > q.front()->val) {
-                max = q.front();
-            }
-            //    q.pop();
-
-        }//else{
-        if (q.front()->left != nullptr) {
-            q.push(q.front()->left);
-        }
-        if (q.front()->right != nullptr) {
-            q.push(q.front()->right);
-        }
-        q.pop();
-        //}
-
-    }
-    if (max->val != INT_MAX) {
-        temp->left = max->left;
-        if (max->left != nullptr) {
-            if (max->left->right != nullptr) {
-                        temp->right = max->left->right;
-                        max->left->right = nullptr;
-                    }
-        }
-        
-        max->left = temp;
-    }
-    else {
-        temp->left = root;
-        return temp;
-    }
-
-
-
-
-
-    return root;
-    /*TreeNode* temp = new TreeNode(val);
-    if (root->val > val) {
-        if (root->left == nullptr) {
-            root->left = temp;
-        }
-        else {
-            if (root->left->val > val) {
-                insertIntoBST(root->left, val);
-            }
-            else {
-                //if(root->left->right != nullptr){
-                  //  if(root->left->right>)
-                //}
-                temp->left = root->left;
-                temp->right = root->left->right;
-                root->left = temp;
-            }
-        }
-    }
-    else {
-        if (root->right == nullptr) {
-            root->right = temp;
-        }
-        else {
-            if (root->right->val > val) {
-                insertIntoBST(root->right, val);
-            }
-            else {
-                temp->right = root->right;
-                temp->left = root->right->left;
-                root->right = temp;
-            }
-        }
-    }
-    return root;
-    */
-}
-bool isValidBST(TreeNode* root) {
-    long  max = LONG_MAX;
-    long  min = LONG_MIN;
-    bool bo = isValidBST(root, min, max);
-    return  bo;
-}
-bool isValidBST(TreeNode* root, long  min, long  max) {
-    bool bo = 1;
-
-    if (root->val <= min || root->val >= max) {
-        return 0;
-    }
-
-    if (root->left != nullptr) {
-        if (root->left->val >= root->val) {
-            return 0;
-        }
-        else {
-            bo = bo && isValidBST(root->left, min, root->val);
-        }
-
-    }
-
-    if (root->right != nullptr) {
-        if (root->right->val <= root->val) {
-            return 0;
-        }
-        else {
-            bo = bo && isValidBST(root->right, root->val, max);
-        }
-
-    }
-
-    return  bo;
-}
-
-TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-
-
-    if (root == p || root == q) {
-        return root;
-    }
-    if (p->val > q->val) {
-        TreeNode* temp = q;
-        q = p;
-        p = temp;
-    }
-
-    if (root->val > p->val && root->val < q->val) {
-        return root;
-    }
-    else if (root->val > p->val && root->val > q->val) {
-        return lowestCommonAncestor(root->left, p, q);
-    }
-    else {
-        return lowestCommonAncestor(root->right, p, q);
-    }
-
+void quickSort(int* arr, int size, int& compCount, int& moveCount)
+{
+	if (size <= 1) {
+		return;
+	}
+	int index = partition(arr, size, compCount, moveCount);
+	quickSort(arr, index-1, compCount, moveCount);
+	quickSort(arr + index+1,size-index-1, compCount, moveCount);
 
 }
 
+void swap(int& x, int& y) {
+	int temp = x;
+	x = y;
+	y = temp;
+}
 
-
-
-
-
+int partition(int* arr, int size, int& compCount, int& moveCount) {
+	int pivot = arr[size - 1];
+	int* small = arr;
+	for (int i = 0; i < size-1; i++)
+	{
+		compCount++;
+		if (arr[i] < pivot) {
+			moveCount++;
+			swap(*small, arr[i]);
+			small++;
+		}
+	}
+	moveCount++;
+	swap(*(small ), arr[size - 1]);
+	return small - arr+1;
+}

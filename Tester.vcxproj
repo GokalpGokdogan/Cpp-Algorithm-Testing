@@ -138,6 +138,7 @@
     <ClCompile Include="MovieRentalSystem.cpp" />
     <ClCompile Include="MovLinkedList.cpp" />
     <ClCompile Include="MovNode.cpp" />
+    <ClCompile Include="LeetCode.cpp" />
     <ClCompile Include="SubLinkedList.cpp" />
     <ClCompile Include="SubNode.cpp" />
     <ClCompile Include="Subscriber.cpp" />

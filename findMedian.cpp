@@ -5,11 +5,12 @@
 using namespace std;
 
 // ------- Functions for the first solution ---------- //
+/*
 void swap(int& n1, int& n2) {
     int temp = n1;
     n1 = n2;
     n2 = temp;
-}
+}*/
 int FIND_MEDIAN_1(int input[], const int n) {
     int maxIndex, maxValue;
     int count = 0;
