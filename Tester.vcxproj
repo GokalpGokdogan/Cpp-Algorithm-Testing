@@ -139,6 +139,7 @@
     <ClCompile Include="MovLinkedList.cpp" />
     <ClCompile Include="MovNode.cpp" />
     <ClCompile Include="LeetCode.cpp" />
+    <ClCompile Include="sorting.cpp" />
     <ClCompile Include="SubLinkedList.cpp" />
     <ClCompile Include="SubNode.cpp" />
     <ClCompile Include="Subscriber.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="MovieRentalSystem.h" />
     <ClInclude Include="MovLinkedList.h" />
     <ClInclude Include="MovNode.h" />
+    <ClInclude Include="sorting.h" />
     <ClInclude Include="SubLinkedList.h" />
     <ClInclude Include="SubNode.h" />
     <ClInclude Include="Subscriber.h" />
