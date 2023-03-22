@@ -15,7 +15,7 @@
 
 	int partition(int* arr, int size, int& compCount, int& moveCount);
 
-	void swap(int& x, int& y);
+	//void swap(int& x, int& y);
 
 
 

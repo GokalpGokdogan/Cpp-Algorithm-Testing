@@ -135,12 +135,12 @@ void quickSort(int* arr, int size, int& compCount, int& moveCount)
 	quickSort(arr + index+1,size-index-1, compCount, moveCount);
 
 }
-
-void swap(int& x, int& y) {
-	int temp = x;
-	x = y;
-	y = temp;
-}
+//
+//void swap(int& x, int& y) {
+//	int temp = x;
+//	x = y;
+//	y = temp;
+//}
 
 int partition(int* arr, int size, int& compCount, int& moveCount) {
 	int pivot = arr[size - 1];
