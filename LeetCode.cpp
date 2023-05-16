@@ -39,6 +39,7 @@ TreeNode* insertIntoBST(TreeNode* root, int val);
 bool isValidBST(TreeNode* root);
 bool isValidBST(TreeNode* root, long  min, long  max);
 TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q);
+int maxVowels(string s, int k);
 
 /*
 int main() {
@@ -600,3 +601,36 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 
 
 
+int maxVowels(string s, int k) {
+
+
+    queue<char> q;
+    int max_count = 0;
+    for (int j = 0; j < k; j++) {
+        q.push(s[j]);
+        if (s[j] == 'a' || s[j] == 'e' || s[j] == 'i' || s[j] == 'o' || s[j] == 'u') {
+            max_count++;
+            //if(k==max_count){return k;}
+        }
+
+    }
+    int count = max_count;
+    for (int i = k; i < s.length(); i++) {
+        if (q.front() == 'a' || q.front() == 'e' || q.front() == 'i' || q.front() == 'o' || q.front() == 'u') {
+            count--;
+        }
+        q.pop();
+
+        if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') {
+            count++;
+        }
+        q.push(s[i]);
+
+        if (count > max_count) {
+            max_count = count;
+            if (k == max_count) { break; }
+        }
+    }
+    return max_count;
+
+}

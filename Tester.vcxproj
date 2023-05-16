@@ -127,20 +127,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Accompaniment.cpp" />
+    <ClCompile Include="AccompanimentHashing.cpp" />
     <ClCompile Include="BST.cpp" />
     <ClCompile Include="BSTNode.cpp" />
     <ClCompile Include="City.cpp" />
+    <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="CreaturePQ.cpp" />
     <ClCompile Include="findMedian.cpp" />
     <Text Include="subscribers_fin.txt">
       <FileType>Document</FileType>
     </Text>
     <ClCompile Include="Flight.cpp" />
     <ClCompile Include="FlightMap.cpp" />
+    <ClCompile Include="Food.cpp" />
+    <ClCompile Include="FoodPQ.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="MovieRentalSystem.cpp" />
     <ClCompile Include="MovLinkedList.cpp" />
     <ClCompile Include="MovNode.cpp" />
     <ClCompile Include="LeetCode.cpp" />
+    <ClCompile Include="Snack.cpp" />
+    <ClCompile Include="SnackHashing.cpp" />
     <ClCompile Include="sorting.cpp" />
     <ClCompile Include="analysis.cpp" />
     <ClCompile Include="SubLinkedList.cpp" />
@@ -149,21 +157,29 @@
     <ClCompile Include="Tester.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Accompaniment.h" />
+    <ClInclude Include="AccompanimentHashing.h" />
     <ClInclude Include="analysis.h" />
     <ClInclude Include="BST.h" />
     <ClInclude Include="BSTNode.h" />
     <ClInclude Include="City.h" />
+    <ClInclude Include="Creature.h" />
+    <ClInclude Include="CreaturePQ.h" />
     <ClInclude Include="findMedian.h" />
     <ClInclude Include="Flight.h" />
     <ClInclude Include="FlightMap.h" />
-    <ClInclude Include="cityFile.txt" />
+    <ClInclude Include="data.txt" />
     <ClInclude Include="flightFile.txt" />
+    <ClInclude Include="Food.h" />
+    <ClInclude Include="FoodPQ.h" />
     <ClInclude Include="movies_fin.txt" />
     <ClInclude Include="Movie.h" />
     <ClInclude Include="movies.txt" />
     <ClInclude Include="MovieRentalSystem.h" />
     <ClInclude Include="MovLinkedList.h" />
     <ClInclude Include="MovNode.h" />
+    <ClInclude Include="Snack.h" />
+    <ClInclude Include="SnackHashing.h" />
     <ClInclude Include="sorting.h" />
     <ClInclude Include="SubLinkedList.h" />
     <ClInclude Include="SubNode.h" />

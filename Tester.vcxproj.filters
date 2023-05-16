@@ -66,6 +66,30 @@
     <ClCompile Include="analysis.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Food.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Creature.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CreaturePQ.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FoodPQ.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Snack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SnackHashing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Accompaniment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AccompanimentHashing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="findMedian.h">
@@ -107,7 +131,7 @@
     <ClInclude Include="Flight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cityFile.txt">
+    <ClInclude Include="data.txt">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="flightFile.txt">
@@ -123,6 +147,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="analysis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Food.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Creature.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CreaturePQ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FoodPQ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Snack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SnackHashing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Accompaniment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AccompanimentHashing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,84 +1,94 @@
-#pragma comment(linker, "/STACK:2000000")
-#pragma comment(linker, "/HEAP:2000000")
+
+#include <random>
+#include <ctime>
 #include <iostream>
-#include <chrono>
-#include "BST.h"
-#include "BSTNode.h"	
-#include "analysis.h"
+#include <cmath>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+
+#include "Snack.h"
+#include "SnackHashing.h"
+#include "Accompaniment.h"
+#include "AccompanimentHashing.h"
+
 using namespace std;
-
-
-BST* merge(const BST& tree1, const BST& tree2);
-
-
 
 int main() {
 
-	//BST test;
-	//test.insertItem(8);
-	//test.insertItem(4);
-	//test.insertItem(13);
-	//test.insertItem(3);
-	//test.insertItem(6);
-	//test.insertItem(12);
-	//test.insertItem(15);
-	//test.insertItem(1);
-	//test.insertItem(2);
-	//test.insertItem(5);
-	//test.insertItem(10);
-	//test.insertItem(14);
-
-	//test.deleteItem(15);
-	//cout << "---------------First Inorder------------------\n";
-	//test.printInorder();
-	///////
-	//BST test1;
-	//test1.insertItem(31);
-	//test1.insertItem(23);
-	//test1.insertItem(85);
-	//test1.insertItem(110);
-	//test1.insertItem(135);
-	//test1.insertItem(21);
-	//test1.insertItem(20);
-	//
-	//cout << "---------------Second Inorder------------------\n";
-	//test1.printInorder();
-
-	//BST* test2 = merge(test,test1);
-
-
-	//cout << "---------------Merged Inorder------------------\n";
-	//test2->printInorder();
 	
+	string input;
+	SnackHashing sHash;
+	AccompanimentHashing acHash;
+
+	while (true)
+	{
+		getline(cin, input);
+		stringstream str(input);
+		char selection;
+		str >> selection;
+		if (selection == 'S') {
+
+			string str1;
+			str >> str1;
+			Snack s(str1);
+			sHash.add(s);
+			cout << "Snack '" << str1 <<"' created" << endl;
+
+		}
+		else if (selection == 'C') {
+			string str1, str2;
+			str >> str1 >> str2;
+			Snack* s1, * s2;
+			sHash.find(str1)->addAccompanied(*sHash.find(str2));///needs checking
+			sHash.find(str2)->addAccompanied(*sHash.find(str1));
+			s1 = sHash.find(str1)->findSnack(str2);
+			s2 = sHash.find(str2)->findSnack(str1);
+			Accompaniment a(str1 + str2, s1, s2);
+			acHash.add(a);
+
+		}
+		else if (selection == 'D') {
+			string str1, str2;
+			str >> str1 >> str2;
+			//acHash.erase(str1, str2);
+
+			sHash.find(str1)->eraseAccompanied(str2);
+			sHash.find(str2)->eraseAccompanied(str1);
+			acHash.erase(str1, str2);
+
+		}
+		else if (selection == 'L') {
+			string str1;
+			str >> str1;
+			sHash.find(str1)->printAccompanied();
+		}
+		else if (selection == 'Q') {
+			string str1, str2;
+			str >> str1 >> str2;
+			bool res = acHash.isThere(str1, str2);
+			if (res) {
+				cout << "Yes" << endl;
+			}
+			else {
+				cout << "No" << endl;
+			}
+
+		}
+		else if (selection == 'X') {
+			return 0;
+
+		}
 
 
-	//##################################################
+	}
 
 
-	//test();
-	timeAnalysis();
-
+	
 	return 0;
 }
 
-BST* merge(const BST& tree1, const BST& tree2)
-{
-	BST* ans = new BST(tree1);
-	//int size1;
-	int size2;
-	//int* arr1 = tree1.inorderTraversal(size1);
-	int* arr2 = tree2.inorderTraversal(size2);
-	/*
-	for (int i = 0; i < size1; i++)
-	{
-		ans->insertItem(arr1[i]);
-	}*/
-	//ans->printInorder();
-	for (int i = 0; i < size2; i++)
-	{
-		ans->insertItem(arr2[i]);
-	}
-	//cout << "------------\n";
-	//ans->printInorder();
-	return ans;
-}
+
+
+
